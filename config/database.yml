@@ -1,0 +1,19 @@
+default: &default
+  adapter: postgresql
+  encoding: unicode
+  pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
+
+development:
+  <<: *default
+  database: geolocation_development
+
+
+test:
+  <<: *default
+  database: geolocation_test
+
+production:
+  <<: *default
+  database: geolocation_production
+  username: geolocation
+  password: <%= ENV["GEOLOCATION_DATABASE_PASSWORD"] %>
