@@ -1,0 +1,73 @@
+---
+openapi: 3.0.1
+info:
+  title: API V1
+  version: v1
+  description: API documentation for version 1 of the application
+  contact:
+    name: API Support
+    email: support@example.com
+  license:
+    name: MIT
+    url: https://opensource.org/licenses/MIT
+paths:
+  "/api/v1/geolocations":
+    post:
+      summary: Create a Geolocation
+      tags:
+      - Geolocations
+      parameters: []
+      responses:
+        '201':
+          description: geolocation created
+        '422':
+          description: invalid input
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                ip_address_or_url:
+                  type: string
+                  default: 1.1.1.1
+              required:
+              - ip_address_or_url
+    get:
+      summary: Show a Geolocation
+      tags:
+      - Geolocations
+      parameters:
+      - name: ip_address_or_url
+        in: query
+        description: IP Address or URL to fetch the geolocation
+        default: 1.1.1.1
+        schema:
+          type: string
+      responses:
+        '200':
+          description: geolocation found
+        '404':
+          description: geolocation not found
+    delete:
+      summary: Delete a Geolocation
+      tags:
+      - Geolocations
+      parameters:
+      - name: ip_address_or_url
+        in: query
+        description: IP Address or URL to delete the geolocation
+        default: 1.1.1.1
+        schema:
+          type: string
+      responses:
+        '200':
+          description: geolocation deleted
+        '404':
+          description: geolocation not found
+servers:
+- url: http://{defaultHost}
+  description: Local development server
+  variables:
+    defaultHost:
+      default: 0.0.0.0:3000
